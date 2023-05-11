@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class RegistroPacientes {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Paciente> pacientes = new ArrayList<>();
+
+        int opcion = 0;
+        do {
+            System.out.println("=== Menú ===");
+            System.out.println("1. Registrar paciente");
+            System.out.println("2. Buscar paciente");
+            System.out.println("3. Mostrar pacientes registrados");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = sc.nextInt();
+            sc.nextLine(); // Consume el salto de línea después de la opción
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("=== Registro de Paciente ===");
+                    System.out.print("Ingrese el nombre: ");
+                    String nombre = sc.nextLine();
+                    System.out.print("Ingrese el número de identificación: ");
+                    String identificacion = sc.nextLine();
+                    System.out.print("Ingrese la fecha de nacimiento (dd/mm/aaaa): ");
+                    String fechaNacimiento = sc.nextLine();
+                    Paciente paciente = new Paciente(nombre, identificacion, fechaNacimiento);
+                    pacientes.add(paciente);
+                    System.out.println("Paciente registrado exitosamente.");
+                    break;
+                case 2:
+                    System.out.println("=== Búsqueda de Paciente ===");
+                    System.out.print("Ingrese el número de identificación del paciente: ");
+                    identificacion = sc.nextLine();
+                    for (Paciente p : pacientes) {
+                        if (p.getIdentificacion().equals(identificacion)) {
+                            System.out.println(p);
+                            break;
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("=== Pacientes Registrados ===");
+                    for (Paciente p : pacientes) {
+                        System.out.println(p);
+                    }
+                    break;
+                case 4:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
+            }
+            System.out.println(); // Salto de línea para separar el menú de la próxima iteración
+        } while (opcion != 4);
+        sc.close();
+    }
+
+}
+
+class Paciente {
+    private String nombre;
+    private String identificacion;
+    private String fechaNacimiento;
+
+    public Paciente(String nombre, String identificacion, String fechaNacimiento) {
+        this.nombre = nombre;
+        this.identificacion = identificacion;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre + ", Identificación: " + identificacion + ", Fecha de nacimiento: " + fechaNacimiento;
+    }
+}
